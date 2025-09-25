@@ -1,13 +1,15 @@
 import React from 'react'
-import { Github, Mail, ExternalLink, Linkedin, Instagram } from 'lucide-react'
+import { Github, Mail, ExternalLink, Linkedin, Instagram, Cpu } from 'lucide-react'
 
 const Footer = () => {
   return (
-    <footer className="mt-12 w-full border-t footer-gradient">
+    <footer className="w-full border-t footer-gradient">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 py-10 sm:grid-cols-2 md:grid-cols-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-blue-600 text-white">KW</span>
+            <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-blue-600 text-white">
+              <Cpu className="h-4 w-4" />
+            </span>
             <span className="text-base font-semibold text-white">IoT Web Dev</span>
           </div>
           <p className="mt-3 text-sm text-blue-100">
@@ -36,12 +38,12 @@ const Footer = () => {
         <div>
           <h4 className="text-sm font-semibold text-white">ติดตามเรา</h4>
           <div className="mt-3 flex items-center gap-3">
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-md border border-blue-300 bg-white/10 px-3 py-1.5 text-sm text-white hover:bg-white/20 transition-colors"><Github className="h-4 w-4"/>GitHub</a>
-            <a href="mailto:example@example.com" className="inline-flex items-center gap-2 rounded-md border border-blue-300 bg-white/10 px-3 py-1.5 text-sm text-white hover:bg-white/20 transition-colors"><Mail className="h-4 w-4"/>Email</a>
+            <a href="https://github.com/Setthapong-dev" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-md border border-blue-300 bg-white/10 px-3 py-1.5 text-sm text-white hover:bg-white/20 transition-colors"><Github className="h-4 w-4"/>GitHub</a>
+            <a href="mailto:setthapong.thansirisuntorn@gmail.com" className="inline-flex items-center gap-2 rounded-md border border-blue-300 bg-white/10 px-3 py-1.5 text-sm text-white hover:bg-white/20 transition-colors"><Mail className="h-4 w-4"/>Email</a>
           </div>
           <div className="mt-2 flex items-center gap-3 text-blue-200">
-            <a href="#" aria-label="LinkedIn" className="rounded-md p-1.5 hover:bg-white/10 transition-colors"><Linkedin className="h-5 w-5"/></a>
-            <a href="#" aria-label="Instagram" className="rounded-md p-1.5 hover:bg-white/10 transition-colors"><Instagram className="h-5 w-5"/></a>
+            <a href="https://www.linkedin.com/in/setthapong-thansirisuntorn-9b023a386/" target="_blank" aria-label="LinkedIn" className="rounded-md p-1.5 hover:bg-white/10 transition-colors"><Linkedin className="h-5 w-5"/></a>
+            <a href="https://www.instagram.com/bosssss.sp/" target="_blank" aria-label="Instagram" className="rounded-md p-1.5 hover:bg-white/10 transition-colors"><Instagram className="h-5 w-5"/></a>
           </div>
         </div>
       </div>

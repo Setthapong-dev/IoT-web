@@ -6,9 +6,9 @@ const TemperatureLogForm = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <h1 className="text-2xl font-bold text-gray-800 mb-2">กำลังโหลดข้อมูล</h1>
           <p className="text-gray-600">กรุณารอสักครู่...</p>
         </div>
@@ -28,7 +28,7 @@ const TemperatureLogForm = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-lg w-full">
         <div className="text-center mb-8">
           <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -72,47 +72,24 @@ const TemperatureLogForm = () => {
             </div>
 
             {/* ฟอร์มบันทึกอุณหภูมิ */}
-            <form className="space-y-4">
+            <form className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-lg font-medium text-gray-700 mb-3">
                   อุณหภูมิ (°C)
                 </label>
                 <input
                   type="number"
                   step="0.1"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  className="w-full px-6 py-4 text-xl border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent text-center"
                   placeholder="กรุณาใส่อุณหภูมิ"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  ความชื้น (%)
-                </label>
-                <input
-                  type="number"
-                  step="0.1"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                  placeholder="กรุณาใส่ความชื้น"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  หมายเหตุ
-                </label>
-                <textarea
-                  rows={3}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                  placeholder="หมายเหตุเพิ่มเติม"
                 />
               </div>
               
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 px-4 rounded-lg font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-200"
+                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-200 shadow-lg hover:shadow-xl"
               >
-                บันทึกข้อมูล
+                บันทึกข้อมูลอุณหภูมิ
               </button>
             </form>
           </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDrone } from '../context/DroneContext.jsx'
+import { Settings } from 'lucide-react'
 
 const ViewConfig = () => {
   const { droneData, loading, error, refreshDroneData } = useDrone()
@@ -41,9 +42,7 @@ const ViewConfig = () => {
       <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-lg w-full">
         <div className="text-center mb-8">
             <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-              </svg>
+              <Settings className="w-10 h-10 text-white" />
             </div>
           <h1 className="text-3xl font-bold text-gray-800 mb-2">ข้อมูล Drone</h1>
           <p className="text-gray-600">Drone Configuration Details</p>

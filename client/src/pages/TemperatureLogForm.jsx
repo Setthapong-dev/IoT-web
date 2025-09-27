@@ -1,9 +1,96 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDrone } from '../context/DroneContext.jsx'
 import { Thermometer } from 'lucide-react'
+import axios from 'axios'
 
 const TemperatureLogForm = () => {
   const { droneData, loading, error } = useDrone()
+  const [temperature, setTemperature] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+  const [submitMessage, setSubmitMessage] = useState('')
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    
+    // เช็คข้อมูล drone ก่อน
+    if (!droneData) {
+      setSubmitMessage('ไม่พบข้อมูล drone กรุณารีเฟรชหน้า')
+      return
+    }
+    
+    // เช็คข้อมูล drone แต่ละฟิลด์
+    if (!droneData.drone_id) {
+      setSubmitMessage('ไม่พบ Drone ID')
+      return
+    }
+    
+    if (!droneData.drone_name) {
+      setSubmitMessage('ไม่พบ Drone Name')
+      return
+    }
+    
+    if (!droneData.country) {
+      setSubmitMessage('ไม่พบ Country')
+      return
+    }
+    
+    // เช็คอุณหภูมิ
+    if (!temperature || temperature.trim() === '') {
+      setSubmitMessage('กรุณากรอกอุณหภูมิ')
+      return
+    }
+    
+    const tempValue = parseFloat(temperature)
+    if (isNaN(tempValue)) {
+      setSubmitMessage('กรุณากรอกอุณหภูมิเป็นตัวเลข')
+      return
+    }
+    
+    if (tempValue < -50 || tempValue > 100) {
+      setSubmitMessage('กรุณากรอกอุณหภูมิระหว่าง -50 ถึง 100 องศาเซลเซียส')
+      return
+    }
+
+    try {
+      setSubmitting(true)
+      setSubmitMessage('')
+
+      const logData = {
+        drone_id: droneData.drone_id,
+        drone_name: droneData.drone_name,
+        country: droneData.country,
+        celsius: tempValue
+      }
+
+      console.log('Sending log data:', logData)
+      console.log('Drone data check:', {
+        drone_id: !!droneData.drone_id,
+        drone_name: !!droneData.drone_name,
+        country: !!droneData.country,
+        celsius: !isNaN(tempValue)
+      })
+
+      const response = await axios.post('http://localhost:3000/logs', logData)
+      
+      console.log('Server response:', response.data)
+      
+      setSubmitMessage('บันทึกข้อมูลอุณหภูมิสำเร็จ!')
+      setTemperature('') // ล้างฟิลด์
+      
+    } catch (error) {
+      console.error('Error submitting temperature log:', error)
+      
+      if (error.response) {
+        setSubmitMessage(`เกิดข้อผิดพลาด: ${error.response.data.error || 'ไม่สามารถบันทึกข้อมูลได้'}`)
+      } else if (error.request) {
+        setSubmitMessage('ไม่สามารถเชื่อมต่อกับ server ได้')
+      } else {
+        setSubmitMessage('เกิดข้อผิดพลาดที่ไม่คาดคิด')
+      }
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   if (loading) {
     return (
@@ -71,7 +158,7 @@ const TemperatureLogForm = () => {
             </div>
 
             {/* ฟอร์มบันทึกอุณหภูมิ */}
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-lg font-medium text-gray-700 mb-3">
                   อุณหภูมิ (°C)
@@ -79,16 +166,30 @@ const TemperatureLogForm = () => {
                 <input
                   type="number"
                   step="0.1"
+                  value={temperature}
+                  onChange={(e) => setTemperature(e.target.value)}
                   className="w-full px-6 py-4 text-xl border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent text-center"
                   placeholder="กรุณาใส่อุณหภูมิ"
+                  required
                 />
               </div>
               
+              {submitMessage && (
+                <div className={`p-4 rounded-xl text-center ${
+                  submitMessage.includes('สำเร็จ') 
+                    ? 'bg-green-100 text-green-700 border border-green-200' 
+                    : 'bg-red-100 text-red-700 border border-red-200'
+                }`}>
+                  {submitMessage}
+                </div>
+              )}
+              
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-200 shadow-lg hover:shadow-xl"
+                disabled={submitting || !temperature}
+                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                บันทึกข้อมูลอุณหภูมิ
+                {submitting ? 'กำลังบันทึก...' : 'บันทึกข้อมูลอุณหภูมิ'}
               </button>
             </form>
           </div>

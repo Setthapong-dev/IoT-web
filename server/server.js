@@ -144,12 +144,12 @@ app.get('/logs/:droneId', async (req, res) => {
   try {
     const droneId = req.params.droneId
     const page = req.query.page || 1
-    const perPage = 12
+    const perPage = 4
     
     console.log(`Fetching logs for drone ${droneId}, page ${page}`)
     
     const response = await axios.get(
-      `https://app-tracking.pockethost.io/api/collections/drone_logs/records?page=${page}&perPage=${perPage}&filter=drone_id="${droneId}"`,
+      `https://app-tracking.pockethost.io/api/collections/drone_logs/records?page=${page}&perPage=${perPage}&filter=drone_id="${droneId}"&sort=-created`,
       {
         headers: {
           'Authorization': 'Bearer 20250901efx',

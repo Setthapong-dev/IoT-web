@@ -11,7 +11,7 @@ const ViewLogs = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [pagination, setPagination] = useState({
     page: 1,
-    perPage: 12,
+    perPage: 4,
     totalItems: 0,
     totalPages: 0
   })
@@ -214,8 +214,8 @@ const ViewLogs = () => {
                           </button>
                           
                           <div className="flex space-x-1">
-                            {Array.from({ length: Math.min(5, pagination.totalPages) }, (_, i) => {
-                              const pageNum = Math.max(1, Math.min(pagination.totalPages - 4, currentPage - 2)) + i
+                            {Array.from({ length: Math.min(3, pagination.totalPages) }, (_, i) => {
+                              const pageNum = Math.max(1, Math.min(pagination.totalPages - 2, currentPage - 1)) + i
                               if (pageNum > pagination.totalPages) return null
                               
                               return (

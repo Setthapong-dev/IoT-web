@@ -196,6 +196,10 @@ app.get('/logs/:droneId', async (req, res) => {
 })
 
 // Start server
-app.listen(PORT, () => {
-  console.log('Server is running on port', PORT)
-})
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running locally at http://localhost:${PORT}`)
+  })
+} else {
+  module.exports = app
+}

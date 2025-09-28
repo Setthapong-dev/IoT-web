@@ -23,7 +23,8 @@ const ViewLogs = () => {
       setLogsLoading(true)
       setLogsError('')
       
-      const response = await axios.get(`http://localhost:3000/logs/${droneData.drone_id}?page=${page}`)
+      const serverUrl = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000'
+      const response = await axios.get(`${serverUrl}/logs/${droneData.drone_id}?page=${page}`)
       
       console.log('Logs response:', response.data)
       

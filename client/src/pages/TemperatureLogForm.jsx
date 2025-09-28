@@ -70,7 +70,8 @@ const TemperatureLogForm = () => {
         celsius: !isNaN(tempValue)
       })
 
-      const response = await axios.post('http://localhost:3000/logs', logData)
+      const serverUrl = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000'
+      const response = await axios.post(`${serverUrl}/logs`, logData)
       
       console.log('Server response:', response.data)
       

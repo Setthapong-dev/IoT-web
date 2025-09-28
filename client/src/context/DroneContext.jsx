@@ -20,12 +20,13 @@ export const DroneProvider = ({ children }) => {
   const [error, setError] = useState(null)
 
   // ฟังก์ชันสำหรับดึงข้อมูล drone
-  const fetchDroneData = async (droneId = '66011495') => {
+  const fetchDroneData = async (droneId = import.meta.env.VITE_DEFAULT_DRONE_ID) => {
     try {
       setLoading(true)
       setError(null)
       
-      const response = await axios.get(`http://localhost:3000/configs/${droneId}`)
+      const serverUrl = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000'
+      const response = await axios.get(`${serverUrl}/configs/${droneId}`)
       setDroneData(response.data)
       return response.data
     } catch (err) {

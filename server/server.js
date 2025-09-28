@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const axios = require('axios')
+require('dotenv').config()
 
 
 const app = express()
@@ -11,7 +12,7 @@ app.use(cors())
 app.use(express.json())
 
 fetchDroneData = async () => {
-    const DRONE_API_URL = "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLhTU9r50sb4VERyYJ9StTu1xDw2GlKPyeuPcic6pxAaDD-wxbptMMTD-Qk_dW9w1rMkMPWg51uLPd9-6jyvNKwCcYVnSFzbzK9Rz4tMGLZtGCFwpDEjKcmZqcv22SAk6YTzOXUcUjYYVhNDT_OXBF7spBygVw31aM60uu9XawiLXqpzGvRkAUaFzbn04h5pHCyKLgxijgqdUfRrJJMLPV2xiRzibKhgRyJLMQjFSDyysIZXLxGhJKJ2a7hAllOCBk2OH1c1jdluVHokLA5Ge03YK0qWBqeWf_Cqg5o9&lib=M9_yccKOaZVEQaYjEvK1gClQlFAuFWsxN"
+    const DRONE_API_URL = process.env.DRONE_API_URL
     const response = await axios.get(`${DRONE_API_URL}`)
     
     if (response.data.status === 'ok' && response.data.data) {
@@ -72,11 +73,11 @@ app.post('/logs', async (req, res) => {
     console.log('Sending data to PocketHost:', pockethostData)
     
     const response = await axios.post(
-      'https://app-tracking.pockethost.io/api/collections/drone_logs/records',
+      process.env.POCKETHOST_API_URL,
       pockethostData,
       {
         headers: {
-          'Authorization': 'Bearer 20250901efx',
+          'Authorization': `Bearer ${process.env.POCKETHOST_API_TOKEN}`,
           'Content-Type': 'application/json'
         }
       }
@@ -149,10 +150,10 @@ app.get('/logs/:droneId', async (req, res) => {
     console.log(`Fetching logs for drone ${droneId}, page ${page}`)
     
     const response = await axios.get(
-      `https://app-tracking.pockethost.io/api/collections/drone_logs/records?page=${page}&perPage=${perPage}&filter=drone_id="${droneId}"&sort=-created`,
+      `${process.env.POCKETHOST_API_URL}?page=${page}&perPage=${perPage}&filter=drone_id="${droneId}"&sort=-created`,
       {
         headers: {
-          'Authorization': 'Bearer 20250901efx',
+          'Authorization': `Bearer ${process.env.POCKETHOST_API_TOKEN}`,
           'Content-Type': 'application/json'
         }
       }

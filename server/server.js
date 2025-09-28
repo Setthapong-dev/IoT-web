@@ -22,6 +22,7 @@ fetchDroneData = async () => {
     }
 }
 
+app.get('/', (req, res)=>res.send('Server is Live!'))
 
 app.get('/configs/:droneId', async (req, res) => {
    try {
